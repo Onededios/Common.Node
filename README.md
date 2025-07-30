@@ -1,5 +1,11 @@
 # Common.Node
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
+
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
+
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
+
 `@onededios/common.node` is a lightweight collection of **Node.js** utilities that simplify server‑side development.  
 It ships common building blocks such as a console logger, environment variable loader/validator, file utilities, error handling helpers, and robust string‑to‑type parsers.
 
