@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { EnvironmentBuilder } from '../config/environment-builder';
 import { Parser } from '../utils/parser';
-import { Logger } from '../logging/logger';
 
 describe('EnvironmentBuilder', () => {
 	const originalEnv = { ...process.env };

@@ -21,13 +21,13 @@ export class Parser {
 		return new Date(ms);
 	}
 
-	public static parseAsJson = <T = unknown>(value: string): T => JSON.parse(value) as T;
+	public static readonly parseAsJson = <T = unknown>(value: string): T => JSON.parse(value) as T;
 
-	public static parseAsCsv = (value: string, delimiter = ','): string[] => value.split(delimiter).map((s) => s.trim());
+	public static readonly parseAsCsv = (value: string, delimiter = ','): string[] => value.split(delimiter).map((s) => s.trim());
 
-	public static parseAsArray = <T>(value: string, itemParser: (raw: string) => T): T[] => Parser.parseAsCsv(value).map(itemParser);
+	public static readonly parseAsArray = <T>(value: string, itemParser: (raw: string) => T): T[] => Parser.parseAsCsv(value).map(itemParser);
 
-	public static parseAsString = (value: string): string => value;
+	public static readonly parseAsString = (value: string): string => value;
 
 	public static parseAsEnum<T extends string>(value: string, allowed: readonly T[]): T {
 		if (allowed.includes(value as T)) return value as T;
