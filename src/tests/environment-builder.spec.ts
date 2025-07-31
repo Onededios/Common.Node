@@ -37,8 +37,6 @@ describe('EnvironmentBuilder', () => {
 	});
 
 	it('should log success after loading variables', () => {
-		// Intercept the underlying console.log call instead of Logger.SUCCESS,
-		// because Logger.SUCCESS formats the message and forwards it to the console.
 		const spy = vi.spyOn(console, 'log').mockImplementation(() => {});
 		process.env.X = '1';
 		const envBuilder = new EnvironmentBuilder({
@@ -46,7 +44,7 @@ describe('EnvironmentBuilder', () => {
 		});
 		expect(spy).toHaveBeenCalled();
 		const messages = spy.mock.calls.map((call) => call[0] as string);
-		const found = messages.some((m) => m.includes('[SUCCESS]') && m.includes('Successfully loaded all .env variables'));
+		const found = messages.some((m) => m.includes('SUCCESS') && m.includes('Successfully loaded all .env variables'));
 		expect(found).toBe(true);
 		expect(envBuilder.variables.X).toEqual(1);
 		spy.mockRestore();

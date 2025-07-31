@@ -8,9 +8,8 @@ describe('ErrorHandler.handle()', () => {
 		const err = new Error('Something went wrong');
 		ErrorHandler.handle(err);
 		expect(spy).toHaveBeenCalledTimes(1);
-		const [message, trace] = spy.mock.calls[0];
+		const [message] = spy.mock.calls[0];
 		expect(message).toBe('Error - Something went wrong');
-		expect(typeof trace).toBe('string');
 		spy.mockRestore();
 	});
 

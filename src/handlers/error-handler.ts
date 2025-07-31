@@ -1,8 +1,12 @@
 import { Logger } from '../logging/logger';
 
 export class ErrorHandler {
-	public static handle(error: unknown): void {
-		if (error instanceof Error) Logger.ERROR(`${error.name} - ${error.message}`, error.stack);
+	public static handle(error: unknown): void;
+	public static async handle(error: unknown, cb: () => void | Promise<void>): Promise<void>;
+
+	public static async handle(error: unknown, cb?: () => void | Promise<void>): Promise<void> {
+		if (cb) await cb();
+		if (error instanceof Error) Logger.ERROR(`${error.name} - ${error.message}`);
 		else {
 			try {
 				const serialized = JSON.stringify(error);

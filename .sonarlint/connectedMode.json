@@ -1,0 +1,5 @@
+{
+    "sonarCloudOrganization": "onededios-custom-sonar-key",
+    "projectKey": "Onededios_Common.Node",
+    "region": "EU"
+}

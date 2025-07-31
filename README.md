@@ -1,5 +1,7 @@
 # Common.Node
 
+<p>
+
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
@@ -47,8 +49,8 @@ Logger.INFO('Server starting…');
 
 // 2 – Environment (.env)
 const env = new EnvironmentBuilder({
- PORT: Parser.parseAsInt,
- DEBUG: Parser.parseAsBool,
+	PORT: Parser.parseAsInt,
+	DEBUG: Parser.parseAsBool,
 });
 console.log('Running on port:', env.variables.PORT);
 
@@ -58,9 +60,9 @@ const settings = await cfgFile.readJSONAsync();
 
 // 4 – Error handling
 try {
- Parser.parseAsInt('abc'); // throws
+	Parser.parseAsInt('abc'); // throws
 } catch (err) {
- ErrorHandler.handle(err);
+	ErrorHandler.handle(err);
 }
 ```
 
