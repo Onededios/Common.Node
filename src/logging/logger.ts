@@ -34,26 +34,29 @@ export class Logger {
 
 		if (!stack || stack.length <= skip) return 'Unknown origin';
 
-		const line = stack[skip].trim();
-		const full = new RegExp(/at\s+(.*?)\s+\((.*):(\d+):(\d+)\)/);
-		const short = new RegExp(/at\s+(.*):(\d+):(\d+)/);
+		let line = stack[skip].trim();
+		if (line.startsWith('at ')) line = line.slice(3).trim();
 
-		let match = full.exec(line);
+		let method: string | undefined;
+		let location = line;
 
-		if (match) {
-			const [, method, path, line, col] = match;
-			const file = path.split(/[\\/]/).pop();
-			return `Method '${method}' from (${file}:${line}:${col})`;
+		const openParen = line.lastIndexOf(' (');
+		const closeParen = line.endsWith(')') ? line.length - 1 : -1;
+
+		if (openParen !== -1 && closeParen === line.length - 1) {
+			method = line.slice(0, openParen).trim();
+			location = line.slice(openParen + 2, closeParen);
 		}
 
-		match = short.exec(line);
-		if (match) {
-			const [, path, line, col] = match;
-			const file = path.split(/[\\/]/).pop();
-			return `(${file}:${line}:${col})`;
-		}
+		const locParts = location.split(':');
+		if (locParts.length < 3) return 'Unknown origin';
 
-		return 'Unknown origin';
+		const col = locParts.pop()!;
+		const lineNo = locParts.pop()!;
+		const filePath = locParts.join(':');
+		const fileName = filePath.split(/[/\\]/).pop() || filePath;
+
+		return method ? `Method '${method}' from (${fileName}:${lineNo}:${col})` : `(${fileName}:${lineNo}:${col})`;
 	}
 
 	private static getColor(level?: EnumValues<typeof this.LevelEnum>) {
