@@ -9,7 +9,7 @@ export default defineConfig({
 			all: true,
 			reportOnFailure: true,
 			include: ['src/**/*.ts'],
-			exclude: ['**/*.spec.ts', '**/*.test.ts', 'test/**'],
+			exclude: ['**/*.spec.ts', '**/*.test.ts', 'src/tests/**'],
 		},
 	},
 });
