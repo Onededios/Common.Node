@@ -1,30 +1,35 @@
 # Common.Node
 
-<p>
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
-
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
-
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
-
 `@onededios/common.node` is a lightweight collection of **Node.js** utilities that simplify server‑side development.  
 It ships common building blocks such as a console logger, environment variable loader/validator, file utilities, error handling helpers, and robust string‑to‑type parsers.
 
+## Code Status
+
+### Overall
+
+![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=ncloc)
+![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=alert_status)
+![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=coverage)
+
+### Quality and Maintenance
+
+![Reliability](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=reliability_rating)
+![Security](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=security_rating)
+![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=bugs)
+![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=vulnerabilities)
+
+### Maintainability
+
+![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=code_smells)
+![Debt](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=sqale_index)
+![Rating](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=sqale_rating)
+![Duplication](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=duplicated_lines_density)
+
 ## Table of Contents
 
-- [Features](#features)
 - [Installation](#installation)
-- [Quick Start](#quick-start)
 - [Contributing](#contributing)
 - [License](#license)
-
-## Features
-
-- Config
-- Handlers
-- Logging
-- Utils
 
 ## Installation
 
@@ -38,33 +43,6 @@ yarn  add     @onededios/common.node   # yarn
 
 - **Node.js ≥ 18**
 - ESM‑compatible runtime (the package ships both **ESM** `.mjs` _and_ **CommonJS** `.cjs` builds)
-
-## Quick Start
-
-```ts
-import { Logger, EnvironmentBuilder, Parser, FileHandler, ErrorHandler } from '@onededios/common.node';
-
-// 1 – Logging
-Logger.INFO('Server starting…');
-
-// 2 – Environment (.env)
-const env = new EnvironmentBuilder({
-	PORT: Parser.parseAsInt,
-	DEBUG: Parser.parseAsBool,
-});
-console.log('Running on port:', env.variables.PORT);
-
-// 3 – File utilities
-const cfgFile = new FileHandler('config/settings.json');
-const settings = await cfgFile.readJSONAsync();
-
-// 4 – Error handling
-try {
-	Parser.parseAsInt('abc'); // throws
-} catch (err) {
-	ErrorHandler.handle(err);
-}
-```
 
 ## Contributing
 
