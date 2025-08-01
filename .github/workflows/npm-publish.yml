@@ -31,6 +31,8 @@ jobs:
           echo "package.json version: $(node -p "require('./package.json').version")"
       - name: Verify package structure
         run: npm pack --dry-run
+      - name: Validate package.json
+        run: node -e "const p=require('./package.json'); if(!p.name||!p.version){throw new Error('package.json missing name or version');}"
       - name: Validate version consistency
         run: |
           PACKAGE_VERSION=$(node -p "require('./package.json').version")
