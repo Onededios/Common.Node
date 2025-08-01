@@ -2,6 +2,7 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"declaration": true,
+		"emitDeclarationOnly": true,
 		"declarationMap": true,
 		"sourceMap": true,
 		"target": "ES2019",

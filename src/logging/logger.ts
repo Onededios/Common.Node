@@ -1,17 +1,90 @@
 import { EnumValues } from '../types/enum.types';
 import { EnumFactory } from '../factories/enum-factory';
 
+/**
+ * Console-based logger that formats messages and conditionally
+ * suppresses chatty output (e.g. **debug** logs) in production.
+ *
+ * @remarks
+ * Pass the current deployment environment once when you create
+ * the instance.
+ * In production (`"pro"`) {@link Logger.debug | debug()} is ignored,
+ * while other levels always reach the console.
+ *
+ * @example
+ * ```ts
+ * import { Logger } from './logger';
+ *
+ * const logger = new Logger('dev');      // ⇠ emit all levels
+ * logger.info('Server started');         // [INFO] Server started
+ *
+ * const prodLogger = new Logger();       // ⇠ defaults to 'pro'
+ * prodLogger.debug('Cache miss');        // (suppressed)
+ * ```
+ */
 export class Logger {
-	public static readonly INFO = (msg: string) => console.info(this.format(this.LevelEnum.info, '', msg));
-	public static readonly WARN = (msg: string) => console.warn(this.format(this.LevelEnum.warn, '', msg));
-	public static readonly ERROR = (msg: string) => console.error(this.format(this.LevelEnum.error, '', msg));
-	public static readonly SUCCESS = (msg: string) => console.log(this.format(this.LevelEnum.success, '', msg));
-	public static DEBUG(msg: string, currentEnv = 'pro') {
-		if (currentEnv.toLowerCase() === 'pro') return;
+	/**
+	 * Creates a new {@link Logger} bound to an environment.
+	 *
+	 * @param currentEnv - Deployment environment that governs which
+	 *                     log levels are emitted.
+	 *                     Defaults to `"pro"`.
+	 */
+	constructor(private readonly currentEnv = 'pro') {}
+
+	/**
+	 * Writes an **error** message to the console.
+	 *
+	 * @param msg - The human-readable message to output.
+	 *
+	 * @example Logger.ERROR('Could not establish connection with database.');
+	 */
+	public readonly INFO = (msg: string) => console.info(this.format(this.LevelEnum.info, '', msg));
+
+	/**
+	 * Writes an **informational** message to the console.
+	 *
+	 * @param msg - The human-readable message to output.
+	 *
+	 * @example Logger.INFO('Connection established with database.');
+	 */
+	public readonly WARN = (msg: string) => console.warn(this.format(this.LevelEnum.warn, '', msg));
+
+	/**
+	 * Writes an **warning** message to the console.
+	 *
+	 * @param msg - The human-readable message to output.
+	 *
+	 * @example Logger.WARN('Could not find the desired file.');
+	 */
+	public readonly ERROR = (msg: string) => console.error(this.format(this.LevelEnum.error, '', msg));
+
+	/**
+	 * Writes a **success** message to the console.
+	 *
+	 * @param msg - The human-readable message to output.
+	 *
+	 * @example Logger.SUCCESS('Record saved.');
+	 */
+	public readonly SUCCESS = (msg: string) => console.log(this.format(this.LevelEnum.success, '', msg));
+
+	/**
+	 * Writes a **debug** message to the console.
+	 *
+	 * @remarks
+	 * Must set currentEnv different of **pro** to enable debug logs.
+	 *
+	 * @param msg - The human-readable message to output.
+	 * @param currentEnv - The current environment.
+	 *
+	 * @example Logger.DEBUG('Connecting to database with user "manolo"...');
+	 */
+	public DEBUG(msg: string) {
+		if (this.currentEnv.toLowerCase() === 'pro') return;
 		console.debug(this.format(this.LevelEnum.debug, '', msg));
 	}
 
-	private static readonly LevelEnum = EnumFactory.create({
+	private readonly LevelEnum = EnumFactory.create({
 		info: 'INFO',
 		warn: 'WARN',
 		error: 'ERROR',
@@ -19,7 +92,7 @@ export class Logger {
 		debug: 'DEBUG',
 	});
 
-	private static format(level: string, symbol: string, msg: string, signature = 4): string {
+	private format(level: string, symbol: string, msg: string, signature = 4): string {
 		const time = new Date().toISOString();
 		const header = `${time} - ${symbol} ${level}`;
 		const currentColor = this.getColor(level);
@@ -28,7 +101,7 @@ export class Logger {
 		return `${currentColor}${header} - ${this.getSignature(signature)}${resetColor}\n - ${msg}`;
 	}
 
-	private static getSignature(skip: number) {
+	private getSignature(skip: number) {
 		const stack = new Error().stack?.split('\n');
 
 		if (!stack || stack.length <= skip) return 'Unknown origin';
@@ -58,7 +131,7 @@ export class Logger {
 		return method ? `Method '${method}' from (${fileName}:${lineNo}:${col})` : `(${fileName}:${lineNo}:${col})`;
 	}
 
-	private static getColor(level?: EnumValues<typeof this.LevelEnum>) {
+	private getColor(level?: EnumValues<typeof this.LevelEnum>) {
 		switch (level) {
 			case this.LevelEnum.info:
 				return '\x1b[34m';
