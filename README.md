@@ -9,6 +9,7 @@ It ships common building blocks such as a console logger, environment variable l
 
 ![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=ncloc)
 ![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=alert_status)
+![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=coverage)
 
 ### Quality and Maintenance
 
@@ -26,18 +27,9 @@ It ships common building blocks such as a console logger, environment variable l
 
 ## Table of Contents
 
-- [Features](#features)
 - [Installation](#installation)
-- [Quick Start](#quick-start)
 - [Contributing](#contributing)
 - [License](#license)
-
-## Features
-
-- Config
-- Handlers
-- Logging
-- Utils
 
 ## Installation
 
@@ -51,33 +43,6 @@ yarn  add     @onededios/common.node   # yarn
 
 - **Node.js ≥ 18**
 - ESM‑compatible runtime (the package ships both **ESM** `.mjs` _and_ **CommonJS** `.cjs` builds)
-
-## Quick Start
-
-```ts
-import { Logger, EnvironmentBuilder, Parser, FileHandler, ErrorHandler } from '@onededios/common.node';
-
-// 1 – Logging
-Logger.INFO('Server starting…');
-
-// 2 – Environment (.env)
-const env = new EnvironmentBuilder({
-	PORT: Parser.parseAsInt,
-	DEBUG: Parser.parseAsBool,
-});
-console.log('Running on port:', env.variables.PORT);
-
-// 3 – File utilities
-const cfgFile = new FileHandler('config/settings.json');
-const settings = await cfgFile.readJSONAsync();
-
-// 4 – Error handling
-try {
-	Parser.parseAsInt('abc'); // throws
-} catch (err) {
-	ErrorHandler.handle(err);
-}
-```
 
 ## Contributing
 
