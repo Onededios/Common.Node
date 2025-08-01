@@ -33,22 +33,13 @@ export class Logger {
 	constructor(private readonly currentEnv = 'pro') {}
 
 	/**
-	 * Writes an **error** message to the console.
-	 *
-	 * @param msg - The human-readable message to output.
-	 *
-	 * @example Logger.ERROR('Could not establish connection with database.');
-	 */
-	public readonly INFO = (msg: string) => console.info(this.format(this.LevelEnum.info, '', msg));
-
-	/**
 	 * Writes an **informational** message to the console.
 	 *
 	 * @param msg - The human-readable message to output.
 	 *
 	 * @example Logger.INFO('Connection established with database.');
 	 */
-	public readonly WARN = (msg: string) => console.warn(this.format(this.LevelEnum.warn, '', msg));
+	public readonly INFO = (msg: string) => console.info(this.format(this.LevelEnum.info, '', msg));
 
 	/**
 	 * Writes an **warning** message to the console.
@@ -57,6 +48,16 @@ export class Logger {
 	 *
 	 * @example Logger.WARN('Could not find the desired file.');
 	 */
+	public readonly WARN = (msg: string) => console.warn(this.format(this.LevelEnum.warn, '', msg));
+
+	/**
+	 * Writes an **error** message to the console.
+	 *
+	 * @param msg - The human-readable message to output.
+	 *
+	 * @example Logger.ERROR('Could not establish connection with database.');
+	 */
+
 	public readonly ERROR = (msg: string) => console.error(this.format(this.LevelEnum.error, '', msg));
 
 	/**
