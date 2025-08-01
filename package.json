@@ -1,13 +1,15 @@
 {
 	"name": "@onededios/common.node",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "Common node utilities for applications",
 	"type": "module",
 	"main": "./dist/index.cjs",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"files": [
-		"dist/**"
+		"dist/**/*.d.ts",
+		"dist/**/*.d.ts.map",
+		"index.js"
 	],
 	"exports": {
 		".": {
@@ -16,8 +18,8 @@
 		}
 	},
 	"scripts": {
-		"build": "tsup",
-		"prepublishOnly": "npm run build",
+		"build": "rimraf dist && tsc -p tsconfig.json",
+		"prepublishOnly": "npm run build && npm pack --dry-run",
 		"test": "vitest",
 		"coverage": "vitest run --coverage",
 		"postcoverage": "npx vitest --ui --coverage.enabled --coverage.reporter=html"

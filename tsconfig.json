@@ -16,7 +16,9 @@
 		"skipLibCheck": true,
 		"forceConsistentCasingInFileNames": true,
 		"incremental": true,
-		"tsBuildInfoFile": ".tsbuildinfo"
+		"tsBuildInfoFile": ".tsbuildinfo",
+		"composite": true,
+		"stripInternal": true
 	},
-	"include": ["src"]
+	"include": ["src/**/*"]
 }

@@ -6,8 +6,7 @@ export class Logger {
 	public static readonly WARN = (msg: string) => console.warn(this.format(this.LevelEnum.warn, '', msg));
 	public static readonly ERROR = (msg: string) => console.error(this.format(this.LevelEnum.error, '', msg));
 	public static readonly SUCCESS = (msg: string) => console.log(this.format(this.LevelEnum.success, '', msg));
-
-	public static DEBUG(msg: string, currentEnv: string) {
+	public static DEBUG(msg: string, currentEnv = 'pro') {
 		if (currentEnv.toLowerCase() === 'pro') return;
 		console.debug(this.format(this.LevelEnum.debug, '', msg));
 	}
