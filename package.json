@@ -1,9 +1,9 @@
 {
 	"name": "@onededios/common.node",
+	"version": "1.0.3",
 	"description": "Common node utilities for applications",
 	"type": "module",
 	"types": "./dist/index.d.ts",
-	"version": "1.0.3",
 	"files": [
 		"dist/**/*.d.ts",
 		"dist/**/*.d.ts.map",
