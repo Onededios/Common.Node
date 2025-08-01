@@ -27,9 +27,28 @@ It ships common building blocks such as a console logger, environment variable l
 
 ## Table of Contents
 
+- [Layout](#layout)
 - [Installation](#installation)
 - [Contributing](#contributing)
 - [License](#license)
+
+## Layout
+
+```bash
+Common.Node/
+ ├─ node_modules/               # Dependencies (preinstalled)
+ ├─ src/                        # TypeScript source code
+ │   ├─ config/                 # Environment variable loader
+ │   ├─ factories/              # Utility for runtime enums
+ │   ├─ handlers/               # Error and file helpers
+ │   ├─ logging/                # Console logger
+ │   ├─ utils/                  # Generic helpers (parser, random generator)
+ │   ├─ tests/                  # Vitest unit tests
+ ├─ index.ts                    # Package entry placeholder
+ ├─ package.json                # Scripts and dependency list
+ ├─ tsconfig.json               # TypeScript compiler settings
+ └─ vitest.config.ts            # Test/coverage configuration
+```
 
 ## Installation
 

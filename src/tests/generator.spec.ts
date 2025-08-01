@@ -1,44 +1,65 @@
 import { describe } from 'node:test';
-import { expect, it } from 'vitest';
+import { afterEach, expect, it, vi } from 'vitest';
 import { Generator } from '../utils/generator';
 
 describe('Generator', () => {
+	const originalRandom = (Generator as any).random;
+
+	afterEach(() => {
+		(Generator as any).random = originalRandom;
+		vi.restoreAllMocks();
+	});
+
 	describe('getRndFromArray', () => {
 		it('should throw RangeError for empty array', () => {
 			expect(() => Generator.getRndFromArray([])).toThrow(RangeError);
 		});
 
 		it('should return a random element from a non-empty array', () => {
-			const array = [1, 2, 3, 4, 5];
-			const result = Generator.getRndFromArray(array);
-			expect(array).toContain(result);
+			const values = ['a', 'b', 'c'];
+			const integer = vi.fn().mockReturnValue(1);
+			(Generator as any).random = { integer } as any;
+
+			const result = Generator.getRndFromArray(values);
+
+			expect(result).toBe('b');
+			expect(integer).toHaveBeenCalledWith(0, values.length - 1);
 		});
 	});
 
 	describe('getRndBool', () => {
 		it('should return a boolean value', () => {
+			const bool = vi.fn().mockReturnValue(true);
+			(Generator as any).random = { bool } as any;
+
 			const result = Generator.getRndBool();
-			expect(typeof result).toBe('boolean');
+
+			expect(result).toBe(true);
+			expect(bool).toHaveBeenCalled();
 		});
 	});
 
 	describe('getRndString', () => {
 		it('should return an string value', () => {
-			const length = 5;
-			const res = Generator.getRndString(length);
-			expect(typeof res).toBe('string');
-			expect(res.length).toEqual(length);
+			const string = vi.fn().mockReturnValue('abc');
+			(Generator as any).random = { string } as any;
+
+			const result = Generator.getRndString(3);
+
+			expect(result).toBe('abc');
+			expect(string).toHaveBeenCalledWith(3);
 		});
 	});
 
 	describe('getRndInt', () => {
 		it('should return an int value', () => {
-			const min = 5;
-			const max = 10;
-			const res = Generator.getRndInt(min, max);
-			expect(typeof res).toBe('number');
-			expect(res).toBeGreaterThanOrEqual(min);
-			expect(res).toBeLessThanOrEqual(max);
+			const integer = vi.fn().mockReturnValue(7);
+			(Generator as any).random = { integer } as any;
+
+			const result = Generator.getRndInt(5, 10);
+
+			expect(result).toBe(7);
+			expect(integer).toHaveBeenCalledWith(5, 10);
 		});
 	});
 });
