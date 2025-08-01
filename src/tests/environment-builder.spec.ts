@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach, vi } from 'vitest';
+import { describe, it, expect, afterEach, vi, expectTypeOf } from 'vitest';
 import { EnvironmentBuilder } from '../config/environment-builder';
 import { Parser } from '../utils/parser';
 
@@ -65,5 +65,17 @@ describe('EnvironmentBuilder', () => {
 		});
 		expect(spy).toHaveBeenCalledWith('value');
 		expect(envBuilder.variables.SPY).toBe('done');
+	});
+
+	it('should expose typed readonly variables', () => {
+		process.env.NUM = '1';
+		process.env.FLAG = 'true';
+		const builder = new EnvironmentBuilder({
+			NUM: Parser.parseAsInt,
+			FLAG: Parser.parseAsBool,
+		});
+		expect(builder.variables.NUM).toBe(1);
+		expect(builder.variables.FLAG).toBe(true);
+		expectTypeOf(builder.variables).toEqualTypeOf<Readonly<{ NUM: number; FLAG: boolean }>>();
 	});
 });
