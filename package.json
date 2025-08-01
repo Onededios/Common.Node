@@ -1,6 +1,5 @@
 {
 	"name": "@onededios/common.node",
-	"version": "1.0.1",
 	"description": "Common node utilities for applications",
 	"type": "module",
 	"types": "./dist/index.d.ts",
