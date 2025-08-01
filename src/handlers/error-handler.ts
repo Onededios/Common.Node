@@ -1,19 +1,30 @@
 import { Logger } from '../logging/logger';
 
+/**
+ * ErrorHandler is responsible for logging and optionally propagating unknown or thrown errors.
+ * It supports optional execution of a callback (sync or async) before handling the error.
+ */
 export class ErrorHandler {
-	public static handle(error: unknown): void;
-	public static async handle(error: unknown, cb: () => void | Promise<void>): Promise<void>;
+	constructor(private readonly logger: Logger, private readonly handleErrors = true) {}
 
-	public static async handle(error: unknown, cb?: () => void | Promise<void>): Promise<void> {
+	/**
+	 * Handles an error and logs it. Optionally executes a callback before handling.
+	 * @param error - The error object to handle (can be any type).
+	 * @param cb - Optional callback to execute before handling the error.
+	 */
+	public async handle(error: unknown, cb?: () => void | Promise<void>): Promise<void> {
 		if (cb) await cb();
-		if (error instanceof Error) Logger.ERROR(`${error.name} - ${error.message}`);
+
+		if (error instanceof Error) this.logger.ERROR(`${error.name} - ${error.message}`);
 		else {
 			try {
 				const serialized = JSON.stringify(error);
-				Logger.ERROR(`Unknown error object: ${serialized}`);
+				this.logger.ERROR(`Unknown error object: ${serialized}`);
 			} catch {
-				Logger.ERROR(`Unknown error: No serializable representation!`);
+				this.logger.ERROR(`Unknown error: No serializable representation!`);
 			}
 		}
+
+		if (!this.handleErrors) throw error;
 	}
 }

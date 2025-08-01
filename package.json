@@ -1,23 +1,17 @@
 {
 	"name": "@onededios/common.node",
-	"version": "1.0.0",
 	"description": "Common node utilities for applications",
 	"type": "module",
-	"main": "./dist/index.cjs",
-	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"files": [
-		"dist/**"
+		"dist/**/*.d.ts",
+		"dist/**/*.d.ts.map",
+		"index.js"
 	],
-	"exports": {
-		".": {
-			"import": "./dist/index.mjs",
-			"require": "./dist/index.cjs"
-		}
-	},
 	"scripts": {
-		"build": "tsup",
-		"prepublishOnly": "npm run build",
+		"clean": "rimraf dist .tsbuildinfo",
+		"build": "npm run clean && tsc -p tsconfig.json",
+		"prepublishOnly": "npm run build && npm pack --dry-run",
 		"test": "vitest",
 		"coverage": "vitest run --coverage",
 		"postcoverage": "npx vitest --ui --coverage.enabled --coverage.reporter=html"
@@ -33,7 +27,7 @@
 		"common"
 	],
 	"author": "Onededios",
-	"license": "Apache-2.0 (SEE IN LICENSE)",
+	"license": "Apache-2.0",
 	"bugs": {
 		"url": "https://github.com/Onededios/Common.Node/issues"
 	},
@@ -46,6 +40,7 @@
 	"dependencies": {
 		"dotenv": "^17.2.1",
 		"random-js": "^2.1.0",
+		"rimraf": "^6.0.1",
 		"tsup": "^8.5.0",
 		"typescript": "^5.8.3",
 		"vitest": "^3.2.4"
