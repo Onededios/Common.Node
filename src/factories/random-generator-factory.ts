@@ -1,4 +1,6 @@
+import { Validator } from '../utils/validators';
 import { Random } from 'random-js';
+import { GUID } from '../types/base.types';
 
 /**
  * Static **random helper** that wraps a single {@link Random} instance to
@@ -22,7 +24,7 @@ import { Random } from 'random-js';
  * const card  = Generator.getRndFromArray(['♠', '♥', '♦', '♣']);
  * ```
  */
-export class Generator {
+export class RandomGeneratorFactory {
 	/** Shared pseudo-random number generator. */
 	private static readonly random = new Random();
 
@@ -64,4 +66,13 @@ export class Generator {
 	 * @returns   Number such that `min ≤ n ≤ max`.
 	 */
 	public static readonly getRndInt = (min = 1, max = 10000): number => this.random.integer(min, max);
+
+	/**
+	 * Generates a **random {@link GUID}**.
+	 */
+	public static readonly getRndGuid = (): GUID => {
+		const guid = this.random.uuid4();
+		if (!Validator.isGUID(guid)) throw new Error('Generated GUID is invalid');
+		return guid as GUID;
+	};
 }

@@ -1,3 +1,6 @@
+import { GUID } from './../types/base.types';
+import { Validator } from './validators';
+
 /**
  * Collection of **parse utilities** that convert untyped user-input
  * strings into strongly-typed JavaScript primitives.
@@ -142,5 +145,18 @@ export class Parser {
 	public static parseAsEnum<T extends string>(value: string, allowed: readonly T[]): T {
 		if (allowed.includes(value as T)) return value as T;
 		throw new Error(`Invalid value "${value}", allowed: ${allowed.join(', ')}`);
+	}
+
+	/**
+	 * Parses a string as a **{@link GUID}**.
+	 *
+	 * @param value - Raw value to validate.
+	 * @returns GUID
+	 *
+	 * @throws Error If the input does not match a {@link GUID}.
+	 */
+	public static parseAsGUID(value: string): GUID {
+		if (!Validator.isGUID(value)) throw new Error('Invalid GUID');
+		return value as GUID;
 	}
 }
