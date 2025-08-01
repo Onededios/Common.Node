@@ -1,13 +1,13 @@
 {
 	"name": "@onededios/common.node",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"description": "Common node utilities for applications",
 	"type": "module",
 	"types": "./dist/index.d.ts",
 	"files": [
 		"dist/**/*.d.ts",
 		"dist/**/*.d.ts.map",
-		"index.js"
+		"index.ts"
 	],
 	"publishConfig": {
 		"access": "public"
