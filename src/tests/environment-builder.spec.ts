@@ -27,4 +27,11 @@ describe('EnvironmentBuilder', () => {
 		});
 		expect(envBuilder.variables.MISSING).toBe('');
 	});
+
+	it('should freeze the resulting variables object', () => {
+		const envBuilder = new EnvironmentBuilder({
+			FOO: Parser.parseAsString,
+		});
+		expect(Object.isFrozen(envBuilder.variables)).toBe(true);
+	});
 });

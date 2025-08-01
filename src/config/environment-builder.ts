@@ -39,7 +39,7 @@ import { config } from 'dotenv';
  */
 export class EnvironmentBuilder<P extends Record<string, (raw: string) => unknown>> {
 	/** Parsed, fully-typed environment variables. */
-	public readonly variables: { [K in keyof P]: ReturnType<P[K]> };
+	public readonly variables: Readonly<{ [K in keyof P]: ReturnType<P[K]> }>;
 
 	/**
 	 * Creates a new {@link EnvironmentBuilder}.
@@ -56,7 +56,7 @@ export class EnvironmentBuilder<P extends Record<string, (raw: string) => unknow
 
 		(Object.keys(parsers) as (keyof P)[]).forEach((key) => (tmp[key] = this.getVar(key)));
 
-		this.variables = tmp;
+		this.variables = Object.freeze(tmp);
 	}
 
 	private getVar<K extends keyof P>(key: K): ReturnType<P[K]> {
