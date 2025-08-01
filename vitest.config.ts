@@ -8,6 +8,8 @@ export default defineConfig({
 			reportsDirectory: 'coverage',
 			all: true,
 			reportOnFailure: true,
+			include: ['src/**/*.ts'],
+			exclude: ['**/*.spec.ts', '**/*.test.ts', 'test/**'],
 		},
 	},
 });
