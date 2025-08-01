@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, afterEach } from 'vitest';
 import { ErrorHandler } from '../handlers/error-handler';
 import { Logger } from '../logging/logger';
-import { log } from 'console';
 
 describe('ErrorHandler.handle()', () => {
 	const logger = { ERROR: vi.fn() } as unknown as Logger;
