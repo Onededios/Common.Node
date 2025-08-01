@@ -1,15 +1,28 @@
 # Common.Node
 
-<p>
-
-[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
-
-[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
-
-[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Onededios_Common.Node)
-
 `@onededios/common.node` is a lightweight collection of **Node.js** utilities that simplify server‑side development.  
 It ships common building blocks such as a console logger, environment variable loader/validator, file utilities, error handling helpers, and robust string‑to‑type parsers.
+
+## Code Status
+
+### Overall
+
+![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=ncloc)
+![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=alert_status)
+
+### Quality and Maintenance
+
+![Reliability](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=reliability_rating)
+![Security](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=security_rating)
+![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=bugs)
+![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=vulnerabilities)
+
+### Maintainability
+
+![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=code_smells)
+![Debt](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=sqale_index)
+![Rating](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=sqale_rating)
+![Duplication](https://sonarcloud.io/api/project_badges/measure?project=Onededios_Common.Node&metric=duplicated_lines_density)
 
 ## Table of Contents
 
