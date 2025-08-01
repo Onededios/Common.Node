@@ -1,13 +1,20 @@
 import { Logger } from '../logging/logger';
 
+/**
+ * ErrorHandler is responsible for logging and optionally propagating unknown or thrown errors.
+ * It supports optional execution of a callback (sync or async) before handling the error.
+ */
 export class ErrorHandler {
-	constructor(private readonly handleErrors = true, private readonly logger: Logger) {}
+	constructor(private readonly logger: Logger, private readonly handleErrors = true) {}
 
-	public handle(error: unknown): void;
-	public async handle(error: unknown, cb: () => void | Promise<void>): Promise<void>;
-
+	/**
+	 * Handles an error and logs it. Optionally executes a callback before handling.
+	 * @param error - The error object to handle (can be any type).
+	 * @param cb - Optional callback to execute before handling the error.
+	 */
 	public async handle(error: unknown, cb?: () => void | Promise<void>): Promise<void> {
 		if (cb) await cb();
+
 		if (error instanceof Error) this.logger.ERROR(`${error.name} - ${error.message}`);
 		else {
 			try {

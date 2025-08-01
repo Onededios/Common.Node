@@ -2,6 +2,8 @@ import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
 import { Logger } from '../logging/logger';
 
 describe('Logger', () => {
+	const logger = new Logger('test');
+
 	const stubConsole = () => ({
 		info: vi.spyOn(console, 'info').mockImplementation(() => {}),
 		warn: vi.spyOn(console, 'warn').mockImplementation(() => {}),
@@ -17,7 +19,7 @@ describe('Logger', () => {
 	afterEach(() => Object.values(spies).forEach((spy) => spy.mockRestore()));
 
 	it('INFO should call console.info with a formatted message', () => {
-		Logger.INFO(msg);
+		logger.INFO(msg);
 
 		expect(spies.info).toHaveBeenCalledOnce();
 		const output = spies.info.mock.calls[0][0] as string;
@@ -26,7 +28,7 @@ describe('Logger', () => {
 	});
 
 	it('WARN should call console.warn with a formatted message', () => {
-		Logger.WARN(msg);
+		logger.WARN(msg);
 
 		expect(spies.warn).toHaveBeenCalledOnce();
 		const output = spies.warn.mock.calls[0][0] as string;
@@ -35,7 +37,7 @@ describe('Logger', () => {
 	});
 
 	it('ERROR should call console.error with a formatted message', () => {
-		Logger.ERROR(msg);
+		logger.ERROR(msg);
 
 		expect(spies.error).toHaveBeenCalledOnce();
 		const output = spies.error.mock.calls[0][0] as string;
@@ -44,7 +46,7 @@ describe('Logger', () => {
 	});
 
 	it('SUCCESS should call console.log with a formatted message', () => {
-		Logger.SUCCESS(msg);
+		logger.SUCCESS(msg);
 
 		expect(spies.log).toHaveBeenCalledOnce();
 		const output = spies.log.mock.calls[0][0] as string;
@@ -53,7 +55,8 @@ describe('Logger', () => {
 	});
 
 	it('logs DEBUG when env is not "pro"', () => {
-		Logger.DEBUG(msg, 'dev');
+		const debugLogger = new Logger('dev');
+		debugLogger.DEBUG(msg);
 
 		expect(spies.debug).toHaveBeenCalledOnce();
 		const output = spies.debug.mock.calls[0][0] as string;
@@ -62,7 +65,8 @@ describe('Logger', () => {
 	});
 
 	it('does NOT log DEBUG in production env', () => {
-		Logger.DEBUG(msg, 'PRO');
+		const notLogger = new Logger('pro');
+		notLogger.DEBUG(msg);
 
 		expect(spies.debug).not.toHaveBeenCalled();
 	});

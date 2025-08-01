@@ -60,16 +60,29 @@ export class EnumFactory {
 	 * @throws Error if called with neither an object nor string arguments.
 	 */
 	public static create(...args: any[]): any {
-		if (typeof args[0] === 'object') return { ...args[0] };
+		const [firstArg, ...rest] = args;
+		if (firstArg == null) throw new Error('Invalid arguments! First argument cannot be null or undefined.');
 
-		if (typeof args[0] === 'string') {
-			return args.reduce((acc, key, index) => {
+		if (typeof firstArg === 'object' && !Array.isArray(firstArg)) {
+			if (Object.prototype.toString.call(firstArg) !== '[object Object]') {
+				throw new Error('Invalid map input! Must be a plain object.');
+			}
+			return { ...firstArg };
+		}
+		if (typeof firstArg === 'string' || Array.isArray(firstArg)) {
+			const keys = Array.isArray(firstArg) ? [firstArg, ...rest].flat() : args;
+
+			if (!keys.every((k) => typeof k === 'string')) {
+				throw new Error('Invalid enum key(s)! All keys must be strings.');
+			}
+
+			return keys.reduce((acc, key, index) => {
 				acc[key] = index;
 				return acc;
 			}, {} as Record<string, number>);
 		}
 
-		throw new Error('Invalid arguments!');
+		throw new Error('Invalid arguments! Must be a string list or an object map.');
 	}
 
 	/**
