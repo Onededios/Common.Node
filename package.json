@@ -8,6 +8,9 @@
 		"dist/**/*.d.ts.map",
 		"index.js"
 	],
+	"publishConfig": {
+		"access": "public"
+	},
 	"scripts": {
 		"clean": "rimraf dist .tsbuildinfo",
 		"build": "npm run clean && tsc -p tsconfig.json",
