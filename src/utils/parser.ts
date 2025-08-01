@@ -157,6 +157,6 @@ export class Parser {
 	 */
 	public static parseAsGUID(value: string): GUID {
 		if (!Validator.isGUID(value)) throw new Error('Invalid GUID');
-		return value as GUID;
+		return value;
 	}
 }

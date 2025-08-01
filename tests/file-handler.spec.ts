@@ -1,5 +1,5 @@
+import { FileHandler } from './../src/handlers/file-handler';
 import { describe, it, expect, afterEach } from 'vitest';
-import { FileHandler } from '../handlers/file-handler';
 import { promises as fs, existsSync } from 'fs';
 import path from 'path';
 

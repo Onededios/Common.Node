@@ -73,6 +73,6 @@ export class RandomGeneratorFactory {
 	public static readonly getRndGuid = (): GUID => {
 		const guid = this.random.uuid4();
 		if (!Validator.isGUID(guid)) throw new Error('Generated GUID is invalid');
-		return guid as GUID;
+		return guid;
 	};
 }

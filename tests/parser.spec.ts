@@ -1,6 +1,5 @@
-import { GUID } from './../types/base.types';
-import { describe, it, expect, expectTypeOf } from 'vitest';
-import { Parser } from '../utils/parser';
+import { Parser } from './../src/utils/parser';
+import { describe, it, expect } from 'vitest';
 
 describe('Parser', () => {
 	describe('parseAsBool()', () => {

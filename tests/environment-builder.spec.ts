@@ -1,6 +1,6 @@
+import { EnvironmentBuilder } from './../src/config/environment-builder';
+import { Parser } from './../src/utils/parser';
 import { describe, it, expect, afterEach, vi, expectTypeOf } from 'vitest';
-import { EnvironmentBuilder } from '../config/environment-builder';
-import { Parser } from '../utils/parser';
 
 describe('EnvironmentBuilder', () => {
 	const originalEnv = { ...process.env };
