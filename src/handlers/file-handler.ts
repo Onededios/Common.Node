@@ -1,4 +1,4 @@
-import path, { resolve } from 'path';
+import path from 'path';
 import { existsSync, promises } from 'fs';
 
 export class FileHandler<T = unknown> {
