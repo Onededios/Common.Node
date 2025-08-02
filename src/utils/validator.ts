@@ -41,7 +41,18 @@ export class Validator {
 	 * Validator.isEmail('user@example.com'); // true
 	 * Validator.isEmail('not-an-email');     // false
 	 */
-	public static isEmail = (value: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+	public static isEmail(value: string): boolean {
+		if (typeof value !== 'string' || value.length > 320) return false;
+		const at = value.indexOf('@');
+		if (at < 1 || at !== value.lastIndexOf('@')) return false;
+		const local = value.slice(0, at);
+		const domain = value.slice(at + 1);
+		if (!local || !domain || local.length > 64 || domain.length > 255) return false;
+		if (domain.indexOf('.') === -1) return false;
+		if (domain.startsWith('.') || domain.endsWith('.')) return false; // <-- Prevents '@.com' and 'user@com.'
+		if (/\s/.test(value)) return false;
+		return true;
+	}
 
 	/**
 	 * Checks if a value is a valid (finite) number.
