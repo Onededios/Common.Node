@@ -1,9 +1,9 @@
-import { Validator } from './../src/utils/validators';
 import { RandomGeneratorFactory } from './../src/factories/random-generator-factory';
 import { describe } from 'node:test';
 import { afterEach, expect, it, vi } from 'vitest';
+import { Validator } from '../src/utils/validator';
 
-describe('Generator', () => {
+describe('RandomGeneratorFactory', () => {
 	const originalRandom = (RandomGeneratorFactory as any).random;
 
 	afterEach(() => {
