@@ -1,5 +1,5 @@
 import { GUID } from './../types/base.types';
-import { Validator } from './validators';
+import { Validator } from './validator';
 
 /**
  * Collection of **parse utilities** that convert untyped user-input

@@ -1,4 +1,4 @@
-import { Validator } from '../utils/validators';
+import { Validator } from '../utils/validator';
 import { Random } from 'random-js';
 import { GUID } from '../types/base.types';
 
