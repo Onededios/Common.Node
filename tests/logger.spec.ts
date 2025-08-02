@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, afterEach, beforeEach } from 'vitest';
-import { Logger } from '../logging/logger';
+import { Logger } from '../src/logging/logger';
 
 describe('Logger', () => {
 	const logger = new Logger('test');

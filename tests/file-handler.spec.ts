@@ -1,23 +1,23 @@
-import { describe, it, expect, afterEach } from 'vitest';
-import { FileHandler } from '../handlers/file-handler';
-import { promises as fs, existsSync } from 'fs';
+import { FileHandler } from '../src/handlers/file-handler';
+import fs from 'node:fs/promises';
 import path from 'path';
+import { describe, afterEach, it, expect } from 'vitest';
 
 describe('FileHandler', () => {
 	const testDir = path.resolve(__dirname, '..');
 	const tempFileName = 'temp_test_file.txt';
 	const tempJsonName = 'temp_test.json';
-	const tempFilePath = path.resolve(testDir, tempFileName);
-	const tempJsonPath = path.resolve(testDir, tempJsonName);
+	const tempFilePath = path.join(testDir, tempFileName);
+	const tempJsonPath = path.join(testDir, tempJsonName);
 
 	afterEach(async () => {
-		if (existsSync(tempFilePath)) await fs.unlink(tempFilePath);
-		if (existsSync(tempJsonPath)) await fs.unlink(tempJsonPath);
+		await fs.rm(tempFilePath, { force: true });
+		await fs.rm(tempJsonPath, { force: true });
 	});
 
 	it('should read file contents asynchronously', async () => {
 		const content = 'Hello, world!';
-		await fs.writeFile(tempFilePath, content, 'utf-8');
+		await fs.writeFile(tempFilePath, content);
 		const handler = new FileHandler<string>(tempFileName);
 		const result = await handler.readAsync();
 		expect(result).toBe(content);
@@ -25,8 +25,8 @@ describe('FileHandler', () => {
 
 	it('should read and parse JSON asynchronously', async () => {
 		const data = { a: 1, b: 'text' };
-		await fs.writeFile(tempJsonPath, JSON.stringify(data), 'utf-8');
-		const handler = new FileHandler<typeof data>(tempJsonName);
+		await fs.writeFile(tempFilePath, JSON.stringify(data));
+		const handler = new FileHandler<typeof data>(tempFileName);
 		const result = await handler.readJSONAsync();
 		expect(result).toEqual(data);
 	});

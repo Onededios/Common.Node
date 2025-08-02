@@ -4,12 +4,12 @@ export default defineConfig({
 	test: {
 		coverage: {
 			provider: 'v8',
-			reporter: ['text', 'html', 'lcov'],
+			reporter: ['lcov'],
 			reportsDirectory: 'coverage',
 			all: true,
 			reportOnFailure: true,
 			include: ['src/**/*.ts'],
-			exclude: ['**/*.spec.ts', '**/*.test.ts', 'test/**'],
+			exclude: ['**/*.spec.ts', 'tests/**', 'src/types/**'],
 		},
 	},
 });

@@ -1,5 +1,5 @@
+import { EnumFactory } from './../src/factories/enum-factory';
 import { describe, it, expect } from 'vitest';
-import { EnumFactory } from '../factories/enum-factory';
 
 describe('EnumFactory', () => {
 	describe('create from list of keys', () => {
