@@ -16,7 +16,8 @@
 		"clean": "rimraf dist .tsbuildinfo",
 		"build": "npm run clean && tsc -p tsconfig.json",
 		"prepublishOnly": "npm run build && npm pack --dry-run",
-		"test": "vitest --ui",
+		"test": "vitest",
+		"test:watch": "vitest --ui --watch",
 		"coverage": "vitest run --coverage",
 		"postcoverage": "npx vitest --ui --coverage.enabled --coverage.reporter=html"
 	},
