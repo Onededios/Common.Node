@@ -7,6 +7,8 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/build.yml
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
   publish-npm:
     needs: build
@@ -38,5 +40,4 @@ jobs:
           fi
       - run: npm publish
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
