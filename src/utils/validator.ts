@@ -29,7 +29,7 @@ export class Validator {
 	 * @remarks
 	 * This method checks that the input matches the `8-4-4-4-12` segment pattern and that all characters are valid hexadecimal digits (0-9, a-f, A-F), but does not check version bits.
 	 */
-	public static isGUID = (value: string): value is GUID => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(value);
+	public static readonly isGUID = (value: string): value is GUID => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(value);
 
 	/**
 	 * Checks if a value is a valid email address (simple RFC 5322 pattern).
@@ -65,7 +65,7 @@ export class Validator {
 	 * Validator.isNumber('123');    // false
 	 * Validator.isNumber(NaN);      // false
 	 */
-	public static isNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value);
+	public static readonly isNumber = (value: unknown): value is number => typeof value === 'number' && Number.isFinite(value);
 
 	/**
 	 * Checks if a value is a non-empty string.
@@ -78,7 +78,7 @@ export class Validator {
 	 * Validator.isNonEmptyString('');      // false
 	 * Validator.isNonEmptyString(123);     // false
 	 */
-	public static isNonEmptyString = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
+	public static readonly isNonEmptyString = (value: unknown): value is string => typeof value === 'string' && value.trim().length > 0;
 
 	/**
 	 * Checks if a value is a valid ISO 8601 date string.
@@ -92,29 +92,13 @@ export class Validator {
 	 * Validator.isISODate('01/08/2023');           // false
 	 */
 	public static isISODate(value: string): boolean {
-		const isoDateRegex = /^(\d{4})-(\d{2})-(\d{2})(?:T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(Z|[+-]\d{2}:\d{2}))?$/;
-		const match = isoDateRegex.exec(value);
-		if (!match) return false;
+		const isoDateRegex = /^\d{4}-\d{2}-\d{2}(?:T\d{2}:\d{2}:\d{2}(?:Z|[+-]\d{2}:\d{2}))?$/;
+		if (!isoDateRegex.test(value)) return false;
 
-		const year = Number(match[1]);
-		const month = Number(match[2]);
-		const day = Number(match[3]);
-		const hour = match[4] !== undefined ? Number(match[4]) : undefined;
-		const minute = match[5] !== undefined ? Number(match[5]) : undefined;
-		const second = match[6] !== undefined ? Number(match[6]) : undefined;
+		const date = new Date(value);
+		if (isNaN(date.getTime())) return false;
 
-		if (month < 1 || month > 12) return false;
-		if (day < 1 || day > 31) return false;
-
-		const daysInMonth = new Date(year, month, 0).getDate();
-		if (day > daysInMonth) return false;
-
-		if (hour !== undefined) {
-			if (hour < 0 || hour > 23) return false;
-			if (minute === undefined || minute < 0 || minute > 59) return false;
-			if (second === undefined || second < 0 || second > 59) return false;
-		}
-
+		if (value.length === 10) return date.toISOString().startsWith(value);
 		return true;
 	}
 }
