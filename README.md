@@ -65,7 +65,7 @@ yarn  add     @onededios/common.node   # yarn
 
 ## Contributing
 
-See full contributing info and steps in [`CONTRIBUTING`](./CONTRIBUTING)
+See full contributing info and steps in [`CONTRIBUTING`](./CONTRIBUTING.md)
 
 ## License
 
