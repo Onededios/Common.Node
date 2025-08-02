@@ -27,7 +27,7 @@ export class Validator {
 	 * ```
 	 *
 	 * @remarks
-	 * This method only checks segment **length**, not hexadecimal **content** or version bits.
+	 * This method checks that the input matches the `8-4-4-4-12` segment pattern and that all characters are valid hexadecimal digits (0-9, a-f, A-F), but does not check version bits.
 	 */
 	public static isGUID = (value: string): value is GUID => /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/.test(value);
 
