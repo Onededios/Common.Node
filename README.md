@@ -65,11 +65,7 @@ yarn  add     @onededios/common.node   # yarn
 
 ## Contributing
 
-1. **Fork** and **clone** the repo.
-2. `pnpm install`
-3. `pnpm run lint && pnpm run test`
-4. Create a feature branch.
-5. Open a **Pull Request**.
+See full contributing info and steps in [`CONTRIBUTING`](./CONTRIBUTING)
 
 ## License
 
