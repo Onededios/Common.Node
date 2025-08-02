@@ -58,4 +58,4 @@ Open an issue or start a discussion in the repository.
 
 ---
 
-Thank you for helping make
+Thank you for helping make **Common.Node** better!
